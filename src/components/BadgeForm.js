@@ -1,20 +1,6 @@
 import React, { Component } from "react";
 
 class BadgeForm extends Component {
-    state = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        jobTitle: "Designer",
-        twitter: ""
-    };
-
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-
     handleClick = e => {
         console.log("Button was clicked");
     };
@@ -22,7 +8,6 @@ class BadgeForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         console.log("Form was submitted");
-        console.log(this.state);
     };
 
     render() {
@@ -37,8 +22,8 @@ class BadgeForm extends Component {
                             className="form-control"
                             type="text"
                             name="firstName"
-                            onChange={this.handleChange}
-                            value={this.state.firstName}
+                            onChange={this.props.onChange}
+                            value={this.props.formValues.firstName}
                         />
                     </div>
 
@@ -48,8 +33,8 @@ class BadgeForm extends Component {
                             className="form-control"
                             type="text"
                             name="lastName"
-                            onChange={this.handleChange}
-                            value={this.state.lastName}
+                            onChange={this.props.onChange}
+                            value={this.props.formValues.lastName}
                         />
                     </div>
 
@@ -59,8 +44,8 @@ class BadgeForm extends Component {
                             className="form-control"
                             type="email"
                             name="email"
-                            onChange={this.handleChange}
-                            value={this.state.email}
+                            onChange={this.props.onChange}
+                            value={this.props.formValues.email}
                         />
                     </div>
 
@@ -70,8 +55,8 @@ class BadgeForm extends Component {
                             className="form-control"
                             type="text"
                             name="jobTitle"
-                            onChange={this.handleChange}
-                            value={this.state.jobTitle}
+                            onChange={this.props.onChange}
+                            value={this.props.formValues.jobTitle}
                         />
                     </div>
 
@@ -81,8 +66,8 @@ class BadgeForm extends Component {
                             className="form-control"
                             type="text"
                             name="twitter"
-                            onChange={this.handleChange}
-                            value={this.state.twitter}
+                            onChange={this.props.onChange}
+                            value={this.props.formValues.twitter}
                         />
                     </div>
 
