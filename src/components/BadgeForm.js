@@ -65,6 +65,12 @@ class BadgeForm extends Component {
 					<button type="submit" className="btn btn-primary">
 						Save
 					</button>
+
+					{this.props.error && (
+						<p className="text-danger mt-3">
+							{this.props.error.message}
+						</p>
+					)}
 				</form>
 			</div>
 		);
