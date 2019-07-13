@@ -6,39 +6,68 @@ import api from "../api";
 import BadgeDetails from "./BadgeDetails";
 
 class BadgeDetailsContainer extends React.Component {
-	state = {
-		loading: true,
-		error: null,
-		data: undefined
-	};
+    state = {
+        loading: true,
+        error: null,
+        data: undefined,
+        modalIsOpen: false
+    };
 
-	componentDidMount() {
-		this.fetchData();
-	}
+    handleOpenModal = e => {
+        this.setState({ modalIsOpen: true });
+    };
 
-	fetchData = async () => {
-		this.setState({ loading: true, error: null });
+    handleCloseModal = e => {
+        this.setState({ modalIsOpen: false });
+    };
 
-		try {
-			const data = await api.badges.read(this.props.match.params.badgeId);
+    handleDeleteBadge = async e => {
+        this.setState({ loading: true, error: null });
 
-			this.setState({ loading: false, data: data });
-		} catch (error) {
-			this.setState({ loading: false, error: error });
-		}
-	};
+        try {
+            await api.badges.remove(this.props.match.params.badgeId);
 
-	render() {
-		if (this.state.loading) {
-			return <PageLoading />;
-		}
+            this.props.history.push("/badges");
+        } catch (error) {
+            this.setState({ loading: false, error: error });
+        }
+    };
 
-		if (this.state.error) {
-			return <PageError error={this.state.error} />;
-		}
+    componentDidMount() {
+        this.fetchData();
+    }
 
-		return <BadgeDetails badge={this.state.data} />;
-	}
+    fetchData = async () => {
+        this.setState({ loading: true, error: null });
+
+        try {
+            const data = await api.badges.read(this.props.match.params.badgeId);
+
+            this.setState({ loading: false, data: data });
+        } catch (error) {
+            this.setState({ loading: false, error: error });
+        }
+    };
+
+    render() {
+        if (this.state.loading) {
+            return <PageLoading />;
+        }
+
+        if (this.state.error) {
+            return <PageError error={this.state.error} />;
+        }
+
+        return (
+            <BadgeDetails
+                onOpenModal={this.handleOpenModal}
+                onCloseModal={this.handleCloseModal}
+                modalIsOpen={this.state.modalIsOpen}
+                onDeleteBadge={this.handleDeleteBadge}
+                badge={this.state.data}
+            />
+        );
+    }
 }
 
 export default BadgeDetailsContainer;
