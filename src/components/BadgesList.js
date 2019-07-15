@@ -42,7 +42,7 @@ function BadgesList(props) {
 
     if (filteredBadges.length === 0) {
         return (
-            <>
+            <div>
                 {filterSearchInput}
                 <div>
                     <h3>No badges were found</h3>
@@ -50,7 +50,7 @@ function BadgesList(props) {
                         Create new badge
                     </Link>
                 </div>
-            </>
+            </div>
         );
     }
 
